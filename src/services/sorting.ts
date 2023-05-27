@@ -20,15 +20,15 @@ function byDate(productList: IProduct[], sorter: number) {
     let sorted = productList.sort((a, b) =>
         Date.parse(a.order_date) - Date.parse(b.order_date)
     )
-    return sorter === 1? sorted : sorted.reverse();
+    return sorter === 1? sorted.reverse(): sorted;
 }
 
 function byPrice(productList: IProduct[], sorter: number) {
     let sorted = productList.sort((a, b) => a.price - b.price);
-    return sorter === 3? sorted : sorted.reverse();
+    return sorter === 3? sorted.reverse(): sorted;
 }
 
 function byMilage(productList: IProduct[], sorter: number) {
     let sorted = productList.sort((a, b) => a.car_run - b.car_run);
-    return sorter === 5? sorted : sorted.reverse();
+    return sorter === 5? sorted.reverse(): sorted;
 }
