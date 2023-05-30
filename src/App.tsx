@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="App">
-      {/*<Product product={useStore} funqcia={svavsProduqts}/>*/}
+      <Product/>
     </div>
   );
 }

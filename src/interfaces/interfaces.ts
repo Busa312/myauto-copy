@@ -162,7 +162,7 @@ export interface IStore {
     search: ISearch;
 }
 
-export const product: IProduct = {
+export const productMock: IProduct = {
     "car_id":91568458,
     "status_id":1,
     "user_id":3065366,
