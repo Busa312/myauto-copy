@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.scss';
 import {getCategories, getManufacturers, getPicture, getProducts} from "./services/httpCalls";
-import {IProduct, product} from "./interfaces/interfaces";
+import {IProduct} from "./interfaces/interfaces";
 import {Product} from "./components/Product";
 import {State} from "./services/StateService";
 
