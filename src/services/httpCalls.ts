@@ -36,8 +36,6 @@ export function getProducts(): Promise<IProduct[]> {
         .then(data => data.data.items as IProduct[])
 }
 
-// fetches picture from api and returns it
-// @Param product from IProduct interface
 export function getPicture(product: IProduct) {
-    return fetch(`https://static.my.ge/myauto/photos/${product.photo}/thumbs/${product.car_id}_1.jpg?v=${product.photo_ver}`)
+    return `https://static.my.ge/myauto/photos/${product.photo}/thumbs/${product.car_id}_1.jpg?v=${product.photo_ver}`;
 }
