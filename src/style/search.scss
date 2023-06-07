@@ -1,0 +1,174 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: TBC Sailec;
+  }
+  body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    background-color: #E5E5E5;
+  }
+.Container{
+    width: 250px;
+    height: 520px;
+    border: 1px;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+    background-color: white;
+    stroke: gray;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px rgba(39, 42, 55, 0.13);
+}
+.mankana{
+   margin-left: 11px;
+}
+.traqtori{
+    margin-right: 10px;
+}
+.moto{
+    margin-right: 11px;
+    margin-left: 10px;
+}
+.icons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.box{
+    select{
+        height: 40px;
+        border: 1px solid #D8DBE2;
+        border-radius: 8px;
+        padding-left: 12px;
+        font-size: 13px;
+        color: #6F7383;
+    }
+    label{
+        margin-bottom: 8px;
+        font-family: TBC Sailec;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 12px;
+        letter-spacing: 0px;
+        text-align: left;
+        font-weight: 600;
+    }
+    display: flex;
+    flex-direction: column;
+    margin: 22px 24px;
+}
+.gray{
+    display: flex;
+}
+.line4{
+    height: 47px;
+    width: 1px;
+    background-color: #E9E9F0;
+}
+.line3{
+    height: 47px;
+    width: 1px;
+    background-color: #E9E9F0;
+}
+.line0{
+    height: 1px;
+    width: 250px;
+    background-color: #E9E9F0;
+}
+.xazebi{
+    display: flex;
+}
+.line9{
+    height: 1px;
+    width: 166px;
+    background-color: #E9E9F0;
+    order: 2;
+}
+.line8{
+    height: 1px;
+    width: 83px;
+    border-radius: 0px;
+    background-color: #FD4100;
+}
+.fasi{
+    border: 0;
+}
+.price{
+    span{
+        margin-left: 24px;
+        margin-right: 124px;
+        font-family: Helvetica Neue LT GEO;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 16px;
+        letter-spacing: 0px;
+        text-align: justified;
+    }
+    margin-top: 16px;
+    margin-bottom: 11px;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.check{
+    height: 24px;
+    width: 46px;
+    left: 0px;
+    top: 0px;
+    border-radius: 12px;
+    border: 1px solid #E2E5EB;
+    margin-right: 24px;
+}
+.price-fields{
+    input{
+    height: 40px;
+    width: 94px;
+    left: 0px;
+    top: 0px;
+    border-radius: 8px;
+    padding: 8px 8px 6px 10px;
+    border: 1px solid #D8DBE2;
+    font-family: Helvetica;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0px;
+    text-align: justified;
+    }
+    margin-left: 24px;
+    display: flex;
+}
+.price-line{
+    width: 6px;
+    height: 2px;
+    background-color: #8C929B;
+    margin: 19px 4px;
+}
+.button-div{
+    height: 68px;
+    margin-top: 44px;
+    box-shadow: 0px 0px 10px rgba(39, 42, 55, 0.13)
+}
+.filter{
+    margin-left: 23px;
+    margin-right: 23px;
+    margin-top: 16px;
+    margin-bottom: 20px;
+    width: 202px;
+    height: 32px;
+    border-radius: 6px;
+    padding: 8px 76px 8px 76px;
+    background: #FD4100;
+    color: #FFFFFF;
+    border: 0;
+    font-family: TBC Sailec;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: center;
+    font-style: bold;
+}

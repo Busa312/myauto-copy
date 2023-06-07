@@ -3,6 +3,7 @@ import './App.scss';
 import {getCategories, getManufacturers, getPicture, getProducts} from "./services/httpCalls";
 import {IProduct} from "./interfaces/interfaces";
 import {Product} from "./components/Product";
+import {Search} from "./components/Search";
 import {State} from "./services/StateService";
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
 
   return (
     <div className="App">
-      <Product/>
+      <Search/>
+      {/* <Product/> */}
     </div>
   );
 }
