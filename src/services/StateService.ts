@@ -12,7 +12,8 @@ export class State {
             priceFloor: 0,
             priceCeiling: Infinity,
             period: null
-        }
+        },
+        isUsd: false
     }
 
 

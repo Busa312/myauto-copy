@@ -1,12 +1,9 @@
 import {getPicture} from "../services/httpCalls";
 import {IProduct} from "../interfaces/interfaces";
 import React from "react";
-import {State} from "../services/StateService";
 import '../style/product.scss';
-import {findAllByDisplayValue} from "@testing-library/react";
-import { get } from "http";
 
-export function Product({product}: {product: IProduct}) {
+export function Product({product, isUsd}: {product: IProduct, isUsd: boolean}) {
 
     const { car_id, car_model, price, comfort_features, photo, photo_ver, prod_year, views, customs_passed, right_wheel, car_run, price_value} = product;
 
@@ -52,9 +49,9 @@ export function Product({product}: {product: IProduct}) {
             </div>
             <div className="mob price-custom">
                 <div className="price">
-                    <p>{price_value}</p>
+                    <p>{isUsd? product.price_usd:price_value}</p>
                     <div className="lari">
-                        <img src="lari.svg" alt="lari" className="lari-icon"/>
+                        <img src={isUsd? 'usd.svg':'lari.svg'}alt="lari" className="lari-icon"/>
                     </div>
                 </div>
                 <div className="customs">
@@ -105,9 +102,9 @@ export function Product({product}: {product: IProduct}) {
                     </div>
                 </div>
                 <div className="price desktop">
-                        <p>{price_value}</p>
+                        <p>{isUsd? product.price_usd : price_value }</p>
                     <div className="lari">
-                        <img src="lari.svg" alt="lari" className="lari-icon"/>
+                        <img src={isUsd? 'usd.svg':'lari.svg'} className="lari-icon"/>
                     </div>
                 </div>
             </div>

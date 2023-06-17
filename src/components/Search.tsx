@@ -16,13 +16,13 @@ import {Multiselect} from "multiselect-react-dropdown";
 let items: IManufacturer[] = [];
 let categories: ICategory[] = [];
 
-export function Search({func}: {func: Function}) {
+export function Search({func, changeCurrency}: {func: Function, changeCurrency: Function}) {
   const [minPrice, setMinPrice] = useState<string>('');
   const [maxPrice, setMaxPrice] = useState<string>('');
   const [selectedCategories, setSelectedCategories] = useState<ICategory[]>([]);
   const [selectedManufacturers, setSelectedManufacturers] = useState<IManufacturer[]>([]);
   const [availability, setAvailability] = useState<{value: boolean, title: string}[]>([]);
-  const [selectedCurrency, setSelectedCurrency] = useState('gel');
+  const [isToggled, onToggle] = useState(false);
     useEffect(() => {
         getManufacturers().then((val) => {
             items = val;
@@ -39,6 +39,11 @@ export function Search({func}: {func: Function}) {
         State.store.search.priceFloor = minPrice? parseFloat(minPrice) : 0;
         State.store.search.priceCeiling = maxPrice? parseFloat(maxPrice) : Infinity;
     }, [selectedManufacturers, selectedCategories, availability, minPrice, maxPrice])
+
+    useEffect(() => {
+        State.store.isUsd = isToggled;
+        changeCurrency();
+    }, [isToggled])
 
     const onSearch = () => {
         getProducts().then((data) => {
@@ -67,17 +72,22 @@ export function Search({func}: {func: Function}) {
         setSelectedManufacturers(arr.filter(val => val.man_id !== value.man_id));
     }
 
-  const handleToggle = () => {
-    const newCurrency = selectedCurrency === 'gel' ? 'usd' : 'gel';
-    setSelectedCurrency(newCurrency);
-  };
-
     const handleAvailabilityChange = (arr: boolean[], value: {value: boolean, title: string}) => {
         setAvailability([value]);
     }
     const handleAvailabilityRemove = (arr: boolean[], value: {value: boolean, title: string}) => {
         setAvailability([]);
     }
+
+    // @ts-ignore
+    const ToggleSwitch = () => {
+        return (
+            <label className="toggle-switch">
+                <input type="checkbox" checked={isToggled} onChange={() => {onToggle(!isToggled)}} />
+                <span className={isToggled? 'switch dollar': 'switch'}  />
+            </label>
+        );
+    };
 
 
   return (
@@ -97,24 +107,24 @@ export function Search({func}: {func: Function}) {
       </div>
       <div className="box1">
         <label htmlFor="availability">გარიგების ტიპი</label>
-          <Multiselect showCheckbox={true} displayValue={'title'} onRemove={handleAvailabilityRemove} options={[{value: true, title: 'ქირავდება'}, {value: false, title: 'იყიდება'}]}
+          <Multiselect customArrow={true} showCheckbox={true} displayValue={'title'} onRemove={handleAvailabilityRemove} options={[{value: true, title: 'ქირავდება'}, {value: false, title: 'იყიდება'}]}
                        closeOnSelect={true} selectedValues={availability} onSelect={handleAvailabilityChange} placeholder={availability.length > 0? '' : 'ნებისმიერი'} showArrow={true}/>
       </div>
       <div className="box1">
         <label>მწარმოებელი</label>
-          <Multiselect showCheckbox={true} onRemove={handleManufacturerRemove} onSelect={handleManufacturerChange} showArrow={true}
+          <Multiselect customArrow={true} showCheckbox={true} onRemove={handleManufacturerRemove} onSelect={handleManufacturerChange} showArrow={true}
                        placeholder={selectedManufacturers.length > 0? '' : 'ყველა მწარმოებელი'}selectedValues={selectedManufacturers} options={items} displayValue={'man_name'} hideSelectedList={false}/>
       </div>
       <div className="box1">
         <label>კატეგორია</label>
-          <Multiselect options={categories} selectedValues={selectedCategories} displayValue={'title'}
+          <Multiselect customArrow={true} options={categories} selectedValues={selectedCategories} displayValue={'title'}
           onSelect={handleCategoryChange} placeholder={selectedCategories.length > 0? '' : 'ყველა კატეგორია'} onRemove={handleCategoryRemove} showCheckbox={true} className={'multiselect'} showArrow={true} isObject={true} hideSelectedList={false} />
       </div>
       <div className="line0"></div>
       <div className="price1">
         <span>ფასი</span>
         <div className="check">
-          {/* <CurrencyToggle selectedCurrency={selectedCurrency} handleToggle={handleToggle} /> */}
+          <ToggleSwitch/>
         </div>
       </div>
       <div className="price-fields">

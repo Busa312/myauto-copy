@@ -160,4 +160,5 @@ export interface ISearch {
 export interface IStore {
     products: IProduct[];
     search: ISearch;
+    isUsd: boolean;
 }

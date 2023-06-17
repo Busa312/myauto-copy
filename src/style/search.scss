@@ -173,3 +173,58 @@ body{
     font-style: bold;
     cursor: pointer;
 }
+
+span.icon_down_dir {
+    background-image: url("../../public/arrow-down.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 18px;
+    height: 18px;
+}
+
+span.icon_down_dir:before {
+    content: "";
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+.toggle-switch input[type="checkbox"] {
+    display: none;
+}
+.toggle-switch .switch {
+    position: absolute;
+    cursor: pointer;
+    background-color: #ccc;
+    border-radius: 25px;
+    top: 0;
+    left: -25px;
+    transition: background-color 0.2s ease;
+}
+.toggle-switch .switch::before {
+    position: absolute;
+    content: "";
+    width: 21px;
+    height: 21px;
+    background-color: black;
+    background-image: url("../../public/gel.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+.toggle-switch .switch{
+    &.dollar {
+        &::before {
+            background-color: #f9f9f9;
+            border: solid black 1px;
+            background-image: url("../../public/usd.svg");
+        }
+    }
+}
+.toggle-switch input[type="checkbox"]:checked + .switch::before {
+    transform: translateX(25px);
+}
