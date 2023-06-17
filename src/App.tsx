@@ -7,6 +7,7 @@ import {Search} from "./components/Search";
 import {Filter} from "./components/Filter";
 import {State} from "./services/StateService";
 import {Header} from './components/Header';
+import {sortBy} from "./services/sorting";
 
 function App() {
   let [useStore, setStore] = useState([] as IProduct[])
@@ -21,9 +22,8 @@ function App() {
     }, [useStore])
 
    function setProducts() {
-      setStore(State.store.products);
+      setStore([...State.store.products]);
    }
-
 
   return (
     <div className="App">
@@ -31,7 +31,7 @@ function App() {
       <div className='main'>
         <Search func={setProducts}/>
         <div className='sub-wrap'>
-        <Filter products={useStore}/>
+        <Filter products={useStore} func={setProducts}/>
           <div className={'products'}>  
               {useStore.map((val) => <Product key={val.car_id} product={val}/>)}
           </div>

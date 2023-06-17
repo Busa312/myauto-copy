@@ -6,7 +6,7 @@ import {ICategory, IManufacturer} from "../interfaces/interfaces";
 import {State} from "../services/StateService";
 import {
     searchByCategory,
-    searchByManufacturer,
+    searchByManufacturer, searchByPeriod,
     searchByPriceFrom, searchByPriceTo,
     searchByRent,
 } from "../services/searching";
@@ -42,11 +42,12 @@ export function Search({func}: {func: Function}) {
 
     const onSearch = () => {
         getProducts().then((data) => {
-            State.store.products = searchByManufacturer(data, State.store.search.manufacturer);
-            State.store.products = searchByCategory(State.store.products, State.store.search.category);
-            State.store.products = searchByRent(State.store.products, State.store.search.forRent)
-            State.store.products = searchByPriceFrom(State.store.products, State.store.search.priceFloor? State.store.search.priceFloor : 0);
-            State.store.products = searchByPriceTo(State.store.products, State.store.search.priceCeiling? State.store.search.priceCeiling : Infinity);
+            State.store.products = searchByManufacturer(data, State.store.search.manufacturer, State.store.search.sorter);
+            State.store.products = searchByCategory(State.store.products, State.store.search.category, State.store.search.sorter);
+            State.store.products = searchByRent(State.store.products, State.store.search.forRent, State.store.search.sorter)
+            State.store.products = searchByPriceFrom(State.store.products, State.store.search.priceFloor? State.store.search.priceFloor : 0, State.store.search.sorter);
+            State.store.products = searchByPriceTo(State.store.products, State.store.search.priceCeiling? State.store.search.priceCeiling : Infinity, State.store.search.sorter);
+            State.store.products = searchByPeriod(State.store.products, State.store.search.period || '3w', State.store.search.sorter)
             func();
         })
     }
