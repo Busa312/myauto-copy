@@ -1,24 +1,19 @@
-* {
-    margin: 0;
-    padding: 0;
+*{
     box-sizing: border-box;
     font-family: TBC Sailec;
-  }
-  body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 90vh;
+}
+body{    
     background-color: #E5E5E5;
-  }
+}
 .Container{
+    margin-top: 68px;
     width: 250px;
-    height: 520px;
     border: 1px;
     border-top-right-radius: 12px;
     border-top-left-radius: 12px;
     background-color: white;
     stroke: gray;
+    height: fit-content;
     align-items: center;
     justify-content: center;
     box-shadow: 0px 0px 10px rgba(39, 42, 55, 0.13);
@@ -28,6 +23,7 @@
 }
 .traqtori{
     margin-right: 10px;
+    margin-left: 10px;
 }
 .moto{
     margin-right: 11px;
@@ -35,10 +31,11 @@
 }
 .icons{
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    img{
+        margin-top: 0px;
+    }
 }
-.box{
+.box1{
     select{
         height: 40px;
         border: 1px solid #D8DBE2;
@@ -63,6 +60,8 @@
 }
 .gray{
     display: flex;
+    background: #F9F9FB;
+    border-top-right-radius: 12px;
 }
 .line4{
     height: 47px;
@@ -72,6 +71,7 @@
 .line3{
     height: 47px;
     width: 1px;
+    margin-left: 9px;
     background-color: #E9E9F0;
 }
 .line0{
@@ -84,7 +84,7 @@
 }
 .line9{
     height: 1px;
-    width: 166px;
+    width: 167px;
     background-color: #E9E9F0;
     order: 2;
 }
@@ -97,7 +97,7 @@
 .fasi{
     border: 0;
 }
-.price{
+.price1{
     span{
         margin-left: 24px;
         margin-right: 124px;
@@ -145,7 +145,7 @@
 }
 .price-line{
     width: 6px;
-    height: 2px;
+    height: 1px;
     background-color: #8C929B;
     margin: 19px 4px;
 }
@@ -171,4 +171,5 @@
     line-height: 14px;
     text-align: center;
     font-style: bold;
+    cursor: pointer;
 }

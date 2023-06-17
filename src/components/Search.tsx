@@ -1,158 +1,147 @@
-import { useState } from "react";
-import '../style/search.scss'
-import { ReactComponent as Car } from '.../public/car.svg';
+import {useEffect, useState} from "react";
+import '../style/search.scss';
+import '../style/CurrencyToggle.scss';
+import {getCategories, getManufacturers, getProducts} from "../services/httpCalls";
+import {ICategory, IManufacturer} from "../interfaces/interfaces";
+import {State} from "../services/StateService";
+import {
+    searchByCategory,
+    searchByManufacturer,
+    searchByPriceFrom, searchByPriceTo,
+    searchByRent,
+} from "../services/searching";
+import {Multiselect} from "multiselect-react-dropdown";
 
 
-interface Item {
-    id: number;
-    name: string;
-    cost: number;
-    category: string;
-    manufacturer: string;
-    forSale: boolean;
-  }
-  
-  const items: Item[] = [
-    { id: 1, name: 'Item 1', cost: 10, category: 'Category A', manufacturer: 'Manufacturer X', forSale: true },
-    { id: 2, name: 'Item 2', cost: 5, category: 'Category B', manufacturer: 'Manufacturer Y', forSale: false },
-    { id: 3, name: 'Item 3', cost: 15, category: 'Category A', manufacturer: 'Manufacturer Z', forSale: true },
-    { id: 4, name: 'Item 4', cost: 8, category: 'Category C', manufacturer: 'Manufacturer X', forSale: false },
-    { id: 5, name: 'Item 5', cost: 20, category: 'Category B', manufacturer: 'Manufacturer Z', forSale: true },
-  ];
+let items: IManufacturer[] = [];
+let categories: ICategory[] = [];
 
-export function Search(){
-    const [minPrice, setMinPrice] = useState<number | ''>('');
-    const [maxPrice, setMaxPrice] = useState<number | ''>('');
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-    const [selectedManufacturers, setSelectedManufacturers] = useState<string[]>([]);
-    const [availability, setAvailability] = useState<boolean | ''>('');
-    const [filteredItems, setFilteredItems] = useState<Item[]>(items); // Initialize with all items
-  
-    const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedOptions = Array.from(event.target.selectedOptions).map((option) => option.value);
-      setSelectedCategories(selectedOptions);
-    };
-  
-    const handleManufacturerChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedOptions = Array.from(event.target.selectedOptions).map((option) => option.value);
-      setSelectedManufacturers(selectedOptions);
-    };
-  
-    const filterItems = () => {
-      const filteredItems = items.filter(
-        (item) =>
-          (minPrice === '' || item.cost >= +minPrice) &&
-          (maxPrice === '' || item.cost <= +maxPrice) &&
-          (selectedCategories.length === 0 || selectedCategories.includes(item.category)) &&
-          (selectedManufacturers.length === 0 || selectedManufacturers.includes(item.manufacturer)) &&
-          (availability === '' || item.forSale === availability)
-      );
-  
-      setFilteredItems(filteredItems);
-    };
-  
-    return (
-      <div className="Container">
-        <div className="icons">
-            <img src="car.svg" className="mankana"></img>
-              <div className="line3"></div>
-            <div className="gray">
-              <img src="tractor.svg" className="traqtori"></img>
-                <div className="line4"></div>
-              <img src="moto.svg" className="moto"></img>
-            </div>
+export function Search({func}: {func: Function}) {
+  const [minPrice, setMinPrice] = useState<string>('');
+  const [maxPrice, setMaxPrice] = useState<string>('');
+  const [selectedCategories, setSelectedCategories] = useState<ICategory[]>([]);
+  const [selectedManufacturers, setSelectedManufacturers] = useState<IManufacturer[]>([]);
+  const [availability, setAvailability] = useState<{value: boolean, title: string}[]>([]);
+  const [selectedCurrency, setSelectedCurrency] = useState('gel');
+    useEffect(() => {
+        getManufacturers().then((val) => {
+            items = val;
+        })
+
+        getCategories().then(val => {
+            categories = val;
+        })
+    }, []);
+    useEffect(() => {
+        State.store.search.manufacturer = selectedManufacturers.map(val => val.man_id);
+        State.store.search.category = selectedCategories.map(val => val.category_id);
+        State.store.search.forRent = availability.map(val => val.value);
+        State.store.search.priceFloor = minPrice? parseFloat(minPrice) : 0;
+        State.store.search.priceCeiling = maxPrice? parseFloat(maxPrice) : Infinity;
+    }, [selectedManufacturers, selectedCategories, availability, minPrice, maxPrice])
+
+    const onSearch = () => {
+        getProducts().then((data) => {
+            State.store.products = searchByManufacturer(data, State.store.search.manufacturer);
+            State.store.products = searchByCategory(State.store.products, State.store.search.category);
+            State.store.products = searchByRent(State.store.products, State.store.search.forRent)
+            State.store.products = searchByPriceFrom(State.store.products, State.store.search.priceFloor? State.store.search.priceFloor : 0);
+            State.store.products = searchByPriceTo(State.store.products, State.store.search.priceCeiling? State.store.search.priceCeiling : Infinity);
+            func();
+        })
+    }
+    const handleCategoryChange = (arr: ICategory[], value: ICategory) => {
+        setSelectedCategories([...arr])
+    }
+
+    const handleCategoryRemove = (arr: ICategory[], value: ICategory) => {
+        setSelectedCategories(arr.filter(val => val.category_id !== value.category_id));
+    }
+
+  const handleManufacturerChange = (arr: IManufacturer[], value: IManufacturer) => {
+    setSelectedManufacturers([...arr]);
+  };
+
+    const handleManufacturerRemove = (arr: IManufacturer[], value: IManufacturer) => {
+        setSelectedManufacturers(arr.filter(val => val.man_id !== value.man_id));
+    }
+
+  const handleToggle = () => {
+    const newCurrency = selectedCurrency === 'gel' ? 'usd' : 'gel';
+    setSelectedCurrency(newCurrency);
+  };
+
+    const handleAvailabilityChange = (arr: boolean[], value: {value: boolean, title: string}) => {
+        setAvailability([value]);
+    }
+    const handleAvailabilityRemove = (arr: boolean[], value: {value: boolean, title: string}) => {
+        setAvailability([]);
+    }
+
+
+  return (
+    <div className="Container">
+      <div className="icons">
+        <img src="car.svg" className="mankana" alt="car" />
+        <div className="line3"></div>
+        <div className="gray">
+          <img src="tractor.svg" className="traqtori" alt="tractor" />
+          <div className="line4"></div>
+          <img src="moto.svg" className="moto" alt="motorcycle" />
         </div>
-        <div className="xazebi">
+      </div>
+      <div className="xazebi">
         <div className="line9"></div>
         <div className="line8"></div>
-        </div>
-        <div className="box">
-          <label htmlFor="availability">გარიგების ტიპი</label>
-          <select
-            id="availability"
-            value={availability.toString()}
-            onChange={(e) => setAvailability(e.target.value === '' ? '' : e.target.value === 'true')}
-          >
-            <option value="">გარიგების ტიპი</option>
-            <option value="true">იყიდება</option>
-            <option value="false">ქირავდება</option>
-          </select>
-        </div>
-        <div className="box">
-          <label>მწარმოებელი</label>
-          <select
-            value={selectedManufacturers}
-            onChange={handleManufacturerChange}
-          >
-            <option value="">ყველა მწარმოებელი</option>
-            <option value="Manufacturer X">Manufacturer X</option>
-            <option value="Manufacturer Y">Manufacturer Y</option>
-            <option value="Manufacturer Z">Manufacturer Z</option>
-          </select>
-        </div>
-        <div className="box">
-          <label>კატეგორია</label>
-          <select
-            value={selectedCategories}
-            onChange={handleCategoryChange}
-          >
-            <option value="">ყველა კატეგორია</option>
-            <option value="Category A">Category A</option>
-            <option value="Category B">Category B</option>
-            <option value="Category C">Category C</option>
-          </select>
-        </div>
-          <div className="line0"></div>
-        <div className="price">
-                <span>ფასი</span>
-              <div className="check">
-                <button className="fasi">
-                    <img src="gel.svg"></img>
-                </button>
-                <button className="fasi">
-                    <img src="usd.svg"></img>
-                </button>
-              </div>
-        </div>
-        <div className="price-fields">
-          <div>
-            <input
-              placeholder="დან"
-              type="number"
-              id="minPrice"
-              value={minPrice}
-              onChange={(e) => setMinPrice(parseFloat(e.target.value))}
-            />
-          </div>
-            <div className="price-line"></div>
-          <div>
-            <input
-              placeholder="მდე"
-              type="number"
-              id="maxPrice"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(parseFloat(e.target.value))}
-            />
-          </div>
-        </div>
-        <div className="button-div">
-          <button onClick={filterItems} className="filter">
-            ძებნა {items.length}
-          </button>
-        </div>
-  
-        {/* <h2>Filtered Items</h2>
-        <ul>
-          {filteredItems.map((item) => (
-            <li key={item.id}>
-              <h3>{item.name}</h3>
-              <p>Cost: {item.cost}</p>
-              <p>Category: {item.category}</p>
-              <p>Manufacturer: {item.manufacturer}</p>
-              <p>Availability: {item.forSale ? 'For Sale' : 'For Rent'}</p>
-            </li>
-          ))}
-        </ul> */}
       </div>
-    );
+      <div className="box1">
+        <label htmlFor="availability">გარიგების ტიპი</label>
+          <Multiselect showCheckbox={true} displayValue={'title'} onRemove={handleAvailabilityRemove} options={[{value: true, title: 'ქირავდება'}, {value: false, title: 'იყიდება'}]}
+                       closeOnSelect={true} selectedValues={availability} onSelect={handleAvailabilityChange} placeholder={availability.length > 0? '' : 'ნებისმიერი'} showArrow={true}/>
+      </div>
+      <div className="box1">
+        <label>მწარმოებელი</label>
+          <Multiselect showCheckbox={true} onRemove={handleManufacturerRemove} onSelect={handleManufacturerChange} showArrow={true}
+                       placeholder={selectedManufacturers.length > 0? '' : 'ყველა მწარმოებელი'}selectedValues={selectedManufacturers} options={items} displayValue={'man_name'} hideSelectedList={false}/>
+      </div>
+      <div className="box1">
+        <label>კატეგორია</label>
+          <Multiselect options={categories} selectedValues={selectedCategories} displayValue={'title'}
+          onSelect={handleCategoryChange} placeholder={selectedCategories.length > 0? '' : 'ყველა კატეგორია'} onRemove={handleCategoryRemove} showCheckbox={true} className={'multiselect'} showArrow={true} isObject={true} hideSelectedList={false} />
+      </div>
+      <div className="line0"></div>
+      <div className="price1">
+        <span>ფასი</span>
+        <div className="check">
+          {/* <CurrencyToggle selectedCurrency={selectedCurrency} handleToggle={handleToggle} /> */}
+        </div>
+      </div>
+      <div className="price-fields">
+        <div>
+          <input
+            placeholder="დან"
+            type="number"
+            id="minPrice"
+            value={minPrice}
+            onChange={(e) => setMinPrice(e.target.value)}
+          />
+        </div>
+        <div className="price-line"></div>
+        <div>
+          <input
+            placeholder="მდე"
+            type="number"
+            id="maxPrice"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="button-div">
+        <button  className="filter" onClick={onSearch}>
+          ძებნა
+        </button>
+      </div>
+    </div>
+  );
 }

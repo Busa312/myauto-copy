@@ -1,6 +1,6 @@
 import {IProduct} from "../interfaces/interfaces";
 
-export function sortBy(productList: IProduct[], sorter: number) {
+export function sortBy(productList: IProduct[], sorter?: number) {
     switch (sorter) {
         case 1:
         case 2:

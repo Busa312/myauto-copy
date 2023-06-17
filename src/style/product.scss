@@ -1,0 +1,183 @@
+body{
+    background-color: #E5E5E5;  
+}
+.flex {
+    display: flex;
+}
+.photo{
+    width: 182px;
+    border-radius: 8px;
+}
+.single-product{
+    padding: 14px;
+    max-width: 740px;
+    border-radius: 14px;
+    background-color: #FFFFFF;
+    display: flex;
+    gap: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    &:first-child {
+        margin-top: 16px;
+    }
+}
+.price{
+    margin-top: 10px;
+    p{
+        margin-top: 0px;
+        font-family: TBC Sailec;
+        font-size: 20px;
+    }
+    display: flex;
+}
+.lari{
+    background: #F2F3F6;
+    height: 24px;
+    width: 26px;
+    border-radius: 50%;
+    margin-left: 4px;
+}
+.lari-icon{
+    margin-top: 6px;
+}
+.box{
+    display: flex;
+    justify-content: space-between;
+}
+.model-name{
+    font-family: Helvetica Neue LT GEO;
+    font-size: 14px;
+    font-weight: 500;
+}
+.year{
+    p{
+        font-family: Helvetica Neue LT GEO;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    margin-left: 8px;
+    color: rgb(83, 82, 82);
+}
+.customs{
+    p{
+        margin-top: 7px;
+    }
+    display: flex;
+    font-family: TBC Sailec;
+    font-size: 11px;
+    font-weight: 500;
+}
+.saxeli{
+    display: flex;
+    margin-right: 83px;
+}
+.headline{
+    display: flex;
+    justify-content: space-between;
+    .custom-location {
+        display: flex;
+        gap: 16px;
+    }
+}
+.witeli{
+    color: #FF3B30;
+}
+.mwvane{
+    color: #26B753;
+    margin-left: 6.5px;
+}
+.flaggeo{
+    height: 16px;
+    width: 16px;
+    margin-top: 14px;
+}
+.location{
+    font-family: TBC Sailec;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 11px;
+    margin-left: 8px;
+    margin-top: 16px;
+    color: #6F7383;
+}
+.single-att{
+    p{
+        margin-left: 12px;
+        font-family: TBC Sailec;
+        font-size: 12px;
+    }
+    display: flex;
+    width: 182px;
+    height: 32px;
+    align-items: center;
+    img {
+        height: 16px;
+    }
+}
+.atts{
+    display: flex;
+}
+.marjvena{
+    margin-left: 32px;
+}
+.views-icons{
+    img{
+        margin-top: 10px;
+        margin-left: 16px;
+        cursor: pointer;
+    }
+
+    display: flex;
+    justify-content: space-between;
+    p{
+        font-family: TBC Sailec;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 12px;
+        text-align: left;
+        color: #6F7383;
+    }
+}
+
+
+.mob {
+    display: none;
+}
+.desktop {
+    display: flex;
+}
+
+.photo-box {
+    width: fit-content;
+}
+.container-1 {
+    width: 100%;
+}
+
+
+@media screen and (max-width: 695px) {
+    .desktop {
+        display: none;
+    }
+    .mob {
+        display: flex;
+    }
+    .price-custom {
+        justify-content: space-between;
+    }
+    .single-product {
+        flex-direction: column;
+        padding: 16px;
+        max-width: 375px;
+        &:first-child {
+            margin-top: 30px;
+        }
+    }
+    .photo-box {
+        align-self: center;
+        .photo {
+            width: 343px;
+        }
+    }
+}

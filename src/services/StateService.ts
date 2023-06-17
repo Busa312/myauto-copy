@@ -5,12 +5,12 @@ export class State {
     static store: IStore = {
         products: [],
         search: {
-            sorter: null,
-            forRent: null,
-            manufacturer: null,
-            category: null,
-            priceFloor: null,
-            priceCeiling: null,
+            sorter: -1,
+            forRent: [],
+            manufacturer: [],
+            category: [],
+            priceFloor: 0,
+            priceCeiling: Infinity,
             period: null
         }
     }

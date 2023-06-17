@@ -148,10 +148,10 @@ export interface IProduct {
 }
 
 export interface ISearch {
-    sorter: number | null;
-    forRent: boolean | null;
-    manufacturer: string | null;
-    category: string | null;
+    sorter: number;
+    forRent: boolean[];
+    manufacturer: string[];
+    category: number[];
     priceFloor: number | null;
     priceCeiling: number | null;
     period: Period | null;
@@ -161,79 +161,3 @@ export interface IStore {
     products: IProduct[];
     search: ISearch;
 }
-
-export const productMock: IProduct = {
-    "car_id":91568458,
-    "status_id":1,
-    "user_id":3065366,
-    "dealer_user_id":0,
-    "paid_add":0,
-    "photo":"5\/4\/8\/6\/5",
-    "pic_number":15,
-    "prod_year":2020,
-    "prod_month":1,
-    "man_id":41,
-    "car_model":"ragac modeli gvaqvs aqane simon",
-    "price":23500,
-    "price_usd":23500,
-    "first_deposit":0,
-    "price_value":60684,
-    "fuel_type_id":2,
-    "gear_type_id":2,
-    "drive_type_id":3,
-    "door_type_id":2,
-    "color_id":12,
-    "saloon_color_id":16,
-    "cylinders":6,
-    "car_run":18000,
-    "car_run_km":18000,
-    "car_run_dim":1,
-    "engine_volume":2500,
-    "airbags":9,
-    "abs":true,
-    "esd":true,
-    "el_windows":true,
-    "conditioner":true,
-    "leather":false,
-    "disks":true,
-    "nav_system":true,
-    "central_lock":true,
-    "hatch":true,
-    "right_wheel":false,
-    "alarm":true,
-    "board_comp":true,
-    "hydraulics":true,
-    "chair_warming":true,
-    "climat_control":true,
-    "obstacle_indicator":true,
-    "customs_passed":false,
-    "client_name":"khvtiso chokuri",
-    "client_phone":995557905425,
-    "model_id":1128,
-    "location_id":15,
-    "parent_loc_id":1,
-    "tech_inspection":true,
-    "checked_for_duplicates":false,
-    "order_number":20,
-    "stickers":null,
-    "changable":false,
-    "auction":false,
-    "has_turbo":false,
-    "for_rent":false,
-    "rent_daily":false,
-    "rent_purchase":false,
-    "rent_insured":false,
-    "rent_driver":false,
-    "currency_id":1,
-    "vehicle_type":0,
-    "category_id":5,
-    "vin":"",
-    "user_type":null,
-    "prom_color":0,
-    "special_persons":false,
-    "back_camera":true,
-    "car_desc":"avtomobili aris idialur mdgomareobashi titis dadeba ar unda chamovoda minimaluri dazianebit shecvlilia mxolod erti kari originalit ",
-    "order_date":"2023-05-30 20:41:00",
-    "video_url":"",
-    "hp":0,
-    "hours_used":0,"photo_ver":3,"checked":true,"lang_type_id":4,"el_starter":0,"start_stop":true,"trunk":false,"windshield":false,"inspected_in_greenway":false,"license_number":"","words_checked":1,"is_payd":true,"condition_type_id":0,"primary_damage_type":0,"secondary_damage_type":0,"auction_has_key":0,"is_auction":0,"saloon_material_id":1,"map_lat":0,"map_long":0,"zoom":0,"predicted_price":"76611.6764","hdd":0,"map_title":"","has_catalyst":1,"tmp":"146.255.226.194","views":165,"dealerId":null,"has_logo":null,"logo_ver":null,"active_ads":null,"dealer_title":null,"has_predicted_price":true,"pred_first_breakpoint":68950.50876000068,"pred_second_breakpoint":122578.6822400012,"pred_min_price":41370.30525600041,"pred_max_price":147094.41868800146,"comfort_features":[6,44,11,20,12,30,31,7,8,38,28,29,9,10,23,15]}
