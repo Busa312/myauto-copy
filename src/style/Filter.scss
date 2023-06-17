@@ -1,0 +1,38 @@
+.filter-wrap{
+    select{
+        height: 40px;
+        width: 164px;
+        border-radius: 8px;
+        padding: 8px 8px 8px 12px;
+        border-color: #E9E9F0;
+        &:first-child {
+            margin-right: 8px;
+        }
+    }
+    display: flex;
+}
+.filter-container{
+    p{
+        font-size: 16px;
+        font-weight: 400;
+    }
+    display: flex;
+    justify-content: space-between;
+}
+.mob {
+    display: none;
+}
+.desktop {
+    display: flex;
+}
+@media screen and (max-width: 695px) {
+    .mob {
+        display: flex;
+    }
+    .desktop {
+        display: none;
+    }
+    .filter-container{
+        justify-content: center;
+    }
+}

@@ -1,0 +1,22 @@
+.currency-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 24px;
+    width: 46px;
+    left: 0;
+    top: 0;
+    border-radius: 12px;
+    cursor: pointer;
+  
+    .currency-icon {
+      width: 100%;
+      height: 100%;
+  
+      &.active {
+        border-radius: 50%;
+        background-color: #000000; /* Set the background color to black */
+      }
+    }
+  }
+  
